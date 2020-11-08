@@ -1,12 +1,14 @@
 /*this is a event dashboard component where all the code for creation and calling of components are 
 going to be done  */
-import React, { Component } from 'react'
-import { Button, Grid } from 'semantic-ui-react'
-import EventList from '../EventList/EventList'
-import EventForm from '../EventForm/EventForm'
+import React, { Component } from "react";
+import { Button, Grid } from "semantic-ui-react";
+import cuid from "cuid";
+import EventList from "../EventList/EventList";
+import EventForm from "../EventForm/EventForm";
 
 const eventsDashboard = [
-  { //this is a data used for creating  an event
+  {
+    //this is a data used for creating  an event
     id: "1",
     title: "Trip to Tower of London",
     date: "2018-03-27T11:00:00+00:00",
@@ -57,55 +59,79 @@ const eventsDashboard = [
 ];
 
 class EventDashboard extends Component {
-
   state = {
-      events: eventsDashboard,
-      isOpen: false,
-    };
-    //here we are binding our function to class so it can be used and passed from thr class
-    //here are other ways to bind the function to class
-    //1 applying bind function to directly at the time of calling
-    //2 applying the arrow function at the time of calling
-    //3 applying the arrow function at the time of creating a function
-    //this.handleFromOpen = this.handleFromOpen.bind(this);
-    //this.handleCancel = this.handleCancel.bind(this);
-  
+    events: eventsDashboard,
+    isOpen: false,
+    selectedEvent: null,
+  };
+  //here we are binding our function to class so it can be used and passed from thr class
+  //here are other ways to bind the function to class
+  //1 applying bind function to directly at the time of calling
+  //2 applying the arrow function at the time of calling
+  //3 applying the arrow function at the time of creating a function
+  //this.handleFromOpen = this.handleFromOpen.bind(this);
+  //this.handleCancel = this.handleCancel.bind(this);
 
-  handleFromOpen = () => { 
+  handleFromOpen = () => {
     this.setState({
-      isOpen:true
-    })
-  }
+      selectedEvent: null,
+      isOpen: true,
+    });
+  };
 
   handleCancel = () => {
     this.setState({
-      isOpen:false
-    })
-  }
+      isOpen: false,
+    });
+  };
 
-    render() {
-        return (
-          <div>
-            <Grid>
-              {/* This is a grid with total size of 16 event dashboard has 10th half and event creation form has 6th half */}
-              <Grid.Column width={10}>
-                <EventList events={this.state.events} />
-              </Grid.Column>
-              <Grid.Column width = {6}>
-                <Button onClick={this.handleFromOpen}
-                  positive
-                  content="Create Event"
-                  style={{ backgroundColor: "#FCAF45", color: "white" }}
-                />
-                {this.state.isOpen &&
-                  <EventForm handleCancel={ this.handleCancel }/>}
-              </Grid.Column>
-            </Grid>
-          </div>
-        );
-    }
+  handleEditEvent = (eventToUpdate) => () => {
+    this.setState({
+      selectedEvent: eventToUpdate,
+      isOpen: true,
+    });
+  };
+
+  handleCreateEvent = (newEvent) => {
+    newEvent.id = cuid();
+    newEvent.hostPhotoURL = "/assets/user.png";
+    const updatedEvents = [...this.state.events, newEvent];
+    this.setState({
+      events: updatedEvents,
+      isOpen: false,
+    });
+  };
+  render() {
+    const { selectedEvent } = this.state;
+    return (
+      <div>
+        <Grid>
+          {/* This is a grid with total size of 16 event dashboard has 10th half and event creation form has 6th half */}
+          <Grid.Column width={10}>
+            <EventList
+              onEventEdit={this.handleEditEvent}
+              events={this.state.events}
+            />
+          </Grid.Column>
+          <Grid.Column width={6}>
+            <Button
+              onClick={this.handleFromOpen}
+              positive
+              content="Create Event"
+              style={{ backgroundColor: "#FCAF45", color: "white" }}
+            />
+            {this.state.isOpen && (
+              <EventForm
+                selectedEvent={selectedEvent}
+                createEvent={this.handleCreateEvent}
+                handleCancel={this.handleCancel}
+              />
+            )}
+          </Grid.Column>
+        </Grid>
+      </div>
+    );
+  }
 }
 
-export default EventDashboard
-
-
+export default EventDashboard;

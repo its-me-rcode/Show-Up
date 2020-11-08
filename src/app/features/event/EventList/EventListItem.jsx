@@ -7,7 +7,7 @@ import EventListAttendee from './EventListAttendee'
 class EventListItem extends Component {
   render() {
     
-    const { event } = this.props;
+    const { event, onEventEdit } = this.props;
 
 
         return (
@@ -33,14 +33,15 @@ class EventListItem extends Component {
             </Segment>
             <Segment secondary>
               <List horizontal>
-                {event.attendees.map((attendee) => (
+                {event.attendee && event.attendees.map((attendee) => (
                   <EventListAttendee key={ attendee.id } attendee={attendee} />
                 ))}
-              </List>
+              </List> 
             </Segment>
             <Segment clearing>
               <span>{event.description}</span>
               <Button
+                onClick={onEventEdit(event)}
                 positive
                 as="a"
                 style={{ backgroundColor: "#FCAF45" }}
