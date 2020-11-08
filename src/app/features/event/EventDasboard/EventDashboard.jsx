@@ -1,10 +1,12 @@
+/*this is a event dashboard component where all the code for creation and calling of components are 
+going to be done  */
 import React, { Component } from 'react'
 import { Button, Grid } from 'semantic-ui-react'
 import EventList from '../EventList/EventList'
 import EventForm from '../EventForm/EventForm'
 
 const eventsDashboard = [
-  {
+  { //this is a data used for creating  an event
     id: "1",
     title: "Trip to Tower of London",
     date: "2018-03-27T11:00:00+00:00",
@@ -55,20 +57,48 @@ const eventsDashboard = [
 ];
 
 class EventDashboard extends Component {
+
+  state = {
+      events: eventsDashboard,
+      isOpen: false,
+    };
+    //here we are binding our function to class so it can be used and passed from thr class
+    //here are other ways to bind the function to class
+    //1 applying bind function to directly at the time of calling
+    //2 applying the arrow function at the time of calling
+    //3 applying the arrow function at the time of creating a function
+    //this.handleFromOpen = this.handleFromOpen.bind(this);
+    //this.handleCancel = this.handleCancel.bind(this);
+  
+
+  handleFromOpen = () => { 
+    this.setState({
+      isOpen:true
+    })
+  }
+
+  handleCancel = () => {
+    this.setState({
+      isOpen:false
+    })
+  }
+
     render() {
         return (
           <div>
             <Grid>
+              {/* This is a grid with total size of 16 event dashboard has 10th half and event creation form has 6th half */}
               <Grid.Column width={10}>
-                <EventList events={eventsDashboard} />
+                <EventList events={this.state.events} />
               </Grid.Column>
-              <Grid.Column width={6}>
-                <Button
+              <Grid.Column width = {6}>
+                <Button onClick={this.handleFromOpen}
                   positive
-                  content="create Event"
-                  style={{ backgroundColor: "#FCAF45" }}
+                  content="Create Event"
+                  style={{ backgroundColor: "#FCAF45", color: "white" }}
                 />
-                <EventForm />
+                {this.state.isOpen &&
+                  <EventForm handleCancel={ this.handleCancel }/>}
               </Grid.Column>
             </Grid>
           </div>
@@ -77,3 +107,5 @@ class EventDashboard extends Component {
 }
 
 export default EventDashboard
+
+

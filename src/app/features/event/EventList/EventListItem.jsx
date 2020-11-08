@@ -1,3 +1,4 @@
+/* this is component used to create an list of item for creating a event  */
 import React, { Component } from 'react'
 import { Segment, Item, Icon, List, Button } from 'semantic-ui-react'
 import EventListAttendee from './EventListAttendee'

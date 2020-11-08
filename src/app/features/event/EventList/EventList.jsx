@@ -1,3 +1,4 @@
+/* this is left side of an event dashboard it is a component for displaying  event  */
 import React, { Component } from 'react'
 import EventListItem  from './EventListItem'
 

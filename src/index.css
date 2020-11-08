@@ -1,5 +1,8 @@
 body {
   background-color: rgb(234, 234, 234) !important;
+  
+    
+  
 }
 
 /*timepicker style*/
@@ -118,3 +121,5 @@ body {
 .dropzone--isActive {
   border: dashed 3px green;
 }
+
+
