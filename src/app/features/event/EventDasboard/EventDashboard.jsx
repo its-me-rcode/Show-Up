@@ -11,7 +11,7 @@ const eventsDashboard = [
     //this is a data used for creating  an event
     id: "1",
     title: "Trip to Tower of London",
-    date: "2018-03-27T11:00:00+00:00",
+    date: "2018-03-27",
     category: "culture",
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sollicitudin ligula eu leo tincidunt, quis scelerisque magna dapibus. Sed eget ipsum vel arcu vehicula ullamcorper.",
@@ -35,7 +35,7 @@ const eventsDashboard = [
   {
     id: "2",
     title: "Trip to Punch and Judy Pub",
-    date: "2018-03-28T14:00:00+00:00",
+    date: "2018-03-28",
     category: "drinks",
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sollicitudin ligula eu leo tincidunt, quis scelerisque magna dapibus. Sed eget ipsum vel arcu vehicula ullamcorper.",
@@ -64,7 +64,7 @@ class EventDashboard extends Component {
     isOpen: false,
     selectedEvent: null,
   };
-  //here we are binding our function to class so it can be used and passed from thr class
+  //here we are binding our function to class so it can be used and passed from the class
   //here are other ways to bind the function to class
   //1 applying bind function to directly at the time of calling
   //2 applying the arrow function at the time of calling
@@ -85,9 +85,23 @@ class EventDashboard extends Component {
     });
   };
 
-  handleEditEvent = (eventToUpdate) => () => {
+  handleUpdateEvent = (updatedEvent) => {
     this.setState({
-      selectedEvent: eventToUpdate,
+      events: this.state.events.map((event) => {
+        if (event.id === updatedEvent.id) {
+          return Object.assign({}, updatedEvent);
+        } else {
+          return event
+        }
+      }),
+      isOpen: false,
+      selectedEvent: null
+    });
+  };
+
+  handleOpenEvent = (eventToOpen) => () => {
+    this.setState({
+      selectedEvent: eventToOpen,
       isOpen: true,
     });
   };
@@ -109,7 +123,7 @@ class EventDashboard extends Component {
           {/* This is a grid with total size of 16 event dashboard has 10th half and event creation form has 6th half */}
           <Grid.Column width={10}>
             <EventList
-              onEventEdit={this.handleEditEvent}
+              onEventOpen={this.handleOpenEvent}
               events={this.state.events}
             />
           </Grid.Column>
@@ -122,6 +136,7 @@ class EventDashboard extends Component {
             />
             {this.state.isOpen && (
               <EventForm
+                updateEvent= {this.handleUpdateEvent}
                 selectedEvent={selectedEvent}
                 createEvent={this.handleCreateEvent}
                 handleCancel={this.handleCancel}
