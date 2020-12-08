@@ -91,11 +91,11 @@ class EventDashboard extends Component {
         if (event.id === updatedEvent.id) {
           return Object.assign({}, updatedEvent);
         } else {
-          return event
+          return event;
         }
       }),
       isOpen: false,
-      selectedEvent: null
+      selectedEvent: null,
     });
   };
 
@@ -115,6 +115,14 @@ class EventDashboard extends Component {
       isOpen: false,
     });
   };
+
+  handleDeleteEvent = (eventId) => () => {
+    const updatedEvents = this.state.events.filter((e) => e.id !== eventId);
+    this.setState({
+      events: updatedEvents,
+    });
+  };
+
   render() {
     const { selectedEvent } = this.state;
     return (
@@ -123,6 +131,7 @@ class EventDashboard extends Component {
           {/* This is a grid with total size of 16 event dashboard has 10th half and event creation form has 6th half */}
           <Grid.Column width={10}>
             <EventList
+              deleteEvent={this.handleDeleteEvent} 
               onEventOpen={this.handleOpenEvent}
               events={this.state.events}
             />
@@ -136,7 +145,7 @@ class EventDashboard extends Component {
             />
             {this.state.isOpen && (
               <EventForm
-                updateEvent= {this.handleUpdateEvent}
+                updateEvent={this.handleUpdateEvent}
                 selectedEvent={selectedEvent}
                 createEvent={this.handleCreateEvent}
                 handleCancel={this.handleCancel}
