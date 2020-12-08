@@ -6,6 +6,8 @@ import cuid from "cuid";
 import EventList from "../EventList/EventList";
 import EventForm from "../EventForm/EventForm";
 
+
+
 const eventsDashboard = [
   {
     //this is a data used for creating  an event
@@ -106,7 +108,7 @@ class EventDashboard extends Component {
     });
   };
 
-  handleCreateEvent = (newEvent) => { 
+  handleCreateEvent = (newEvent) => {  
     newEvent.id = cuid();
     newEvent.hostPhotoURL = "/assets/user.png";
     const updatedEvents = [...this.state.events, newEvent];
