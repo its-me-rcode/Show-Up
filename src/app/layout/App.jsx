@@ -1,9 +1,9 @@
 /* This Where all of your main component's are going to be called */
 // we have extensively used a css library called semantic ui for react in this build
 import React from 'react'
-import {Route} from 'react-router-dom'
+import {Route, Switch} from 'react-router-dom'
 import { Container } from 'semantic-ui-react'
-import EventDasboard from '../features/event/EventDasboard/EventDashboard'
+import EventDashboard from '../features/event/EventDasboard/EventDashboard'
 import NavBar from '../features/nav/NavBar/NavBar'
 import EventDetailedPage from '../features/event/EventDetailedPage/EventDetailedPage'
 import PeopleDashboard from "../features/event/user/PeopleDashboard/PeopleDashboard"
@@ -16,16 +16,26 @@ import HomePage from "../features/home/HomePage"
 function App() {
   return (
     <div>
-      <NavBar/>
-      <Container className="main" >
-        <Route exact path="/" component={HomePage}/>
-        <Route path="/events" component={EventDasboard} />
-        <Route path="/event/:id" component={ EventDetailedPage } />
-        <Route path="/people" component={ PeopleDashboard } />
-        <Route path="/profile/:id" component={ UserDetailedPage } />
-        <Route path="/settings" component={ SettingsDashboard } />
-        <Route path="/createEvent" component={ EventForm }/>
-    </Container>
+      <Switch>
+        <Route exact path="/" component={HomePage} />
+      </Switch>
+      <Route path="/(.+)"
+        render={() => (
+      <div>
+        <NavBar />
+        <Container className="main">
+          <Switch>
+            <Route path="/events" component={EventDashboard} />
+            <Route path="/event/:id" component={EventDetailedPage} />
+            <Route path="/people" component={PeopleDashboard} />
+            <Route path="/profile/:id" component={UserDetailedPage} />
+            <Route path="/settings" component={SettingsDashboard} />
+            <Route path="/createEvent" component={EventForm} />
+          </Switch>
+        </Container>
+      </div>
+      )}
+      />
     </div>
   );
 }
