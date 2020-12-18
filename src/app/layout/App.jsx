@@ -11,6 +11,7 @@ import UserDetailedPage from "../features/event/user/UserDetailed/UserDetailedPa
 import SettingsDashboard from "../features/event/user/Settings/SettingsDashboard"
 import EventForm from "../features/event/EventForm/EventForm"
 import HomePage from "../features/home/HomePage"
+import TestComponent from "../features/testarea/TestComponent"
 
 
 function App() {
@@ -19,22 +20,24 @@ function App() {
       <Switch>
         <Route exact path="/" component={HomePage} />
       </Switch>
-      <Route path="/(.+)"
+      <Route
+        path="/(.+)"
         render={() => (
-      <div>
-        <NavBar />
-        <Container className="main">
-          <Switch>
-            <Route path="/events" component={EventDashboard} />
-            <Route path="/event/:id" component={EventDetailedPage} />
-            <Route path="/people" component={PeopleDashboard} />
-            <Route path="/profile/:id" component={UserDetailedPage} />
-            <Route path="/settings" component={SettingsDashboard} />
-            <Route path="/createEvent" component={EventForm} />
-          </Switch>
-        </Container>
-      </div>
-      )}
+          <div>
+            <NavBar />
+            <Container className="main">
+              <Switch>
+                <Route path="/events" component={EventDashboard} />
+                <Route path="/test" component={TestComponent} />
+                <Route path="/event/:id" component={EventDetailedPage} />
+                <Route path="/people" component={PeopleDashboard} />
+                <Route path="/profile/:id" component={UserDetailedPage} />
+                <Route path="/settings" component={SettingsDashboard} />
+                <Route path="/createEvent" component={EventForm} />
+              </Switch>
+            </Container>
+          </div>
+        )}
       />
     </div>
   );

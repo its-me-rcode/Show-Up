@@ -17,7 +17,7 @@ class NavBar extends Component {
     this.setState({ authenticated: false })
     this.props.history.push('/')
   }
-
+ 
   render() {
     const { authenticated } = this.state;
     return (
@@ -28,6 +28,7 @@ class NavBar extends Component {
             Show-Up
           </Menu.Item>
           <Menu.Item as={NavLink} to="/events" name="Events" />
+          <Menu.Item as={NavLink} to="/test" name="Test" />
           {authenticated && (
             <Menu.Item as={NavLink} to="/people" name="People" />
           )}

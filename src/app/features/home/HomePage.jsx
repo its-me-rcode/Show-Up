@@ -12,7 +12,7 @@ const HomePage = ({history}) => {
                     alt='logo'
                     style={{ marginBottom: 12 }}
                   />
-                  Re-vents
+                  Show-Up
                 </Header>
                 <Button size='huge' inverted onClick={() => history.push('/events')}>
                   Get started
