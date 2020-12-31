@@ -8,6 +8,7 @@ import App from "./app/layout/App";
 import reportWebVitals from "./reportWebVitals";
 import { configureStore } from "./app/store/configureStore";
 import "semantic-ui-css/semantic.min.css";
+import ScrollToTop from "./app/common/util/ScrollToTop";
 
 const rootEl = document.getElementById("root");
 
@@ -18,7 +19,9 @@ let render = () => {
     <React.StrictMode>
       <Provider store={store}>
         <BrowserRouter>
-          <App />
+          <ScrollToTop>
+            <App />
+          </ScrollToTop>
         </BrowserRouter>
       </Provider>
     </React.StrictMode>,
@@ -31,8 +34,6 @@ if (module.hot) {
 }
 
 render();
-
-
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
